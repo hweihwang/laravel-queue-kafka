@@ -4,3 +4,5 @@
 composer.lock
 .phpstorm.meta.php
 phpunit.xml
+docker-compose.yml
+Dockerfile

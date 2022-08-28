@@ -8,10 +8,7 @@ use Rapide\LaravelQueueKafka\Queue\Connectors\KafkaConnector;
 
 class LaravelQueueKafkaServiceProvider extends ServiceProvider
 {
-    /**
-     * Register the service provider.
-     */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/kafka.php', 'queue.connections.kafka'
@@ -19,11 +16,8 @@ class LaravelQueueKafkaServiceProvider extends ServiceProvider
 
         $this->registerDependencies();
     }
-
-    /**
-     * Register the application's event listeners.
-     */
-    public function boot()
+    
+    public function boot(): void
     {
         /** @var QueueManager $queue */
         $queue = $this->app['queue'];
@@ -33,11 +27,8 @@ class LaravelQueueKafkaServiceProvider extends ServiceProvider
             return $connector;
         });
     }
-
-    /**
-     * Register adapter dependencies in the container.
-     */
-    protected function registerDependencies()
+    
+    protected function registerDependencies(): void
     {
         $this->app->bind('queue.kafka.topic_conf', function () {
             return new \RdKafka\TopicConf();
@@ -55,13 +46,8 @@ class LaravelQueueKafkaServiceProvider extends ServiceProvider
             return new \RdKafka\Consumer($parameters['conf']);
         });
     }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
+    
+    public function provides(): array
     {
         return [
             'queue.kafka.topic_conf',
